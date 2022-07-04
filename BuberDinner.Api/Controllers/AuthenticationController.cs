@@ -19,7 +19,12 @@ namespace BuberDinner.Api.Controllers
         public IActionResult Register(RegisterRequest request)
         {
             var authResult = _authenticationService.Register(request.FirsName, request.LastName, request.Email, request.Password);
-            var response = new AuthenticationResponse(authResult.Id, authResult.FirsName, authResult.LastName, authResult.Email, authResult.Token);
+            var response = new AuthenticationResponse(
+                authResult.user.Id, 
+                authResult.user.FirstName, 
+                authResult.user.LastName, 
+                authResult.user.Email, 
+                authResult.Token);
 
             return Ok(response);
         }
@@ -27,7 +32,12 @@ namespace BuberDinner.Api.Controllers
         public IActionResult Login(LoginRequest request)
         {
             var authResult = _authenticationService.Login(request.Email, request.Password);
-            var response = new AuthenticationResponse(authResult.Id, authResult.FirsName, authResult.LastName, authResult.Email, authResult.Token);
+            var response = new AuthenticationResponse(
+                authResult.user.Id, 
+                authResult.user.FirstName, 
+                authResult.user.LastName, 
+                authResult.user.Email, 
+                authResult.Token);
 
             return Ok(response);
         }
