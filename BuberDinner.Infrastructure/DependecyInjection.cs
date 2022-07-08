@@ -13,19 +13,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuberDinner.Infrastructure
+namespace BuberDinner.Infrastructure;
+
+public static class DependecyInjection
 {
-    public static class DependecyInjection
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.Configure<JwtSettings>(configuration.GetSection(nameof(JwtSettings)));
-            services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
-            services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        services.Configure<JwtSettings>(configuration.GetSection(nameof(JwtSettings)));
+        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
-            services.AddScoped<IUserRepository, UserRepository>();
-            return services;
+        services.AddScoped<IUserRepository, UserRepository>();
+        return services;
 
-        }
     }
 }

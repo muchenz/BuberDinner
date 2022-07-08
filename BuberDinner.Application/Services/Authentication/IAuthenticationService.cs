@@ -5,15 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuberDinner.Application.Services.Authentication
-{
-    public interface IAuthenticationService
-    {
-        AuthenticationResult Login(string email, string password);
+namespace BuberDinner.Application.Services.Authentication;
 
-        AuthenticationResult Register(string firsName,
-        string lastName,
-        string email,
-        string password);
-    }
+public interface IAuthenticationService
+{
+    AuthenticationResult Login(string email, string password);
+
+    AuthenticationResult Register(string firsName,
+    string lastName,
+    string email,
+    string password);
 }

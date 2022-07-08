@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuberDinner.Application.Common.Interfaces.Persistence
+namespace BuberDinner.Application.Common.Interfaces.Persistence;
+
+public  interface IUserRepository
 {
-    public  interface IUserRepository
-    {
-        void Add(User user);
-        User? GetUserByEmail(string email);
-    }
+    void Add(User user);
+    User? GetUserByEmail(string email);
 }

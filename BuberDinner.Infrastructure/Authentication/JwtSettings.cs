@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuberDinner.Infrastructure.Authentication
-{
-    public class JwtSettings
-    {
+namespace BuberDinner.Infrastructure.Authentication;
 
-        public string Secret { get; init; } = null!;
-        public int ExpiryMinutes { get; init; }
-        public string Issuer { get; init; } = null!;
-        public string Audience { get; init; } = null!;
-        
-    }
+public class JwtSettings
+{
+
+    public string Secret { get; init; } = null!;
+    public int ExpiryMinutes { get; init; }
+    public string Issuer { get; init; } = null!;
+    public string Audience { get; init; } = null!;
+    
 }

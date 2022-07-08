@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuberDinner.Application.Services.Authentication
-{
-    public  record AuthenticationResult(
-        User user,
-        string Token);
-}
+namespace BuberDinner.Application.Services.Authentication;
+
+public  record AuthenticationResult(
+    User user,
+    string Token);

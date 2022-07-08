@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuberDinner.Application.Common.Interfaces.Services
+namespace BuberDinner.Application.Common.Interfaces.Services;
+
+public interface IDateTimeProvider
 {
-    public interface IDateTimeProvider
-    {
-        DateTime UtcNow { get; }
-    }
+    DateTime UtcNow { get; }
 }
