@@ -1,4 +1,6 @@
-﻿using BuberDinner.Contracts.Authentication;
+﻿using BuberDinner.Application.Common.Errors;
+using BuberDinner.Contracts.Authentication;
+using OneOf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ public interface IAuthenticationService
 {
     AuthenticationResult Login(string email , string password);
 
-    AuthenticationResult Register(string firsName,
+    OneOf<AuthenticationResult, IError> Register(string firsName,
     string lastName,
     string email,
     string password);
