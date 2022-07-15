@@ -8,6 +8,7 @@ namespace BuberDinner.Api.Errors;
 
 public class BubberDinnerProblemDetailsFactory : ProblemDetailsFactory
 {
+    /////////////////////////////////// copy form asp.net core 
     private readonly ApiBehaviorOptions _options;
 
     public BubberDinnerProblemDetailsFactory(IOptions<ApiBehaviorOptions> options)
@@ -89,7 +90,8 @@ public class BubberDinnerProblemDetailsFactory : ProblemDetailsFactory
         {
             problemDetails.Extensions["traceId"] = traceId;
         }
-
+        ////////////////////////////////////////////////
+        
         problemDetails.Extensions.Add("customProperty", "customValues");
     }
 }
