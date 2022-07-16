@@ -3,7 +3,7 @@ using BuberDinner.Application.Common.Interfaces.Authentication;
 using BuberDinner.Application.Common.Interfaces.Persistence;
 using BuberDinner.Contracts.Authentication;
 using BuberDinner.Domain.Entities;
-using OneOf;
+using FluentResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,12 +40,15 @@ public class AuthenticationService : IAuthenticationService
         return new AuthenticationResult(user, token);
     }
 
-    public OneOf<AuthenticationResult, IError> Register(string firsName, string lastName, string email, string password)
+    public Result<AuthenticationResult> Register(string firsName, string lastName, string email, string password)
     {
         if (_userRepository.GetUserByEmail(email) is not null)
         {
             //throw new DuplicateEmailExeption();
-            return new DuplicateEmailError();
+            // return Result.Fail<AuthenticationResult>(new DuplicateEmailError());
+            
+            // or list of errors 
+             return Result.Fail<AuthenticationResult>(new[] { new DuplicateEmailError() });
         }
 
         var user = new User { FirstName=firsName, LastName=lastName, Email=email,Password=password };
