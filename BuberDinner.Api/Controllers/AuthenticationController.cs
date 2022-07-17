@@ -1,8 +1,11 @@
 ﻿using BuberDinner.Api.Filters;
-using BuberDinner.Application.Services.Authentication;
+using BuberDinner.Application.Authentication.Commands.Register;
+using BuberDinner.Application.Authentication.Queriers.Login;
+using BuberDinner.Application.Services.Authentication.Common;
 using BuberDinner.Contracts.Authentication;
 
 using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuberDinner.Api.Controllers;
@@ -12,18 +15,19 @@ namespace BuberDinner.Api.Controllers;
 //[ErrorHandlingFilter]
 public class AuthenticationController : ApiController
 {
-    private readonly IAuthenticationService _authenticationService;
+    private readonly IMediator _mediator;
 
-    public AuthenticationController(IAuthenticationService authenticationService)
+    public AuthenticationController(IMediator mediator)
     {
-        _authenticationService = authenticationService;
+        _mediator = mediator;
     }
 
     [HttpPost("register")]
-    public IActionResult Register(RegisterRequest request)
+    public async Task<IActionResult> Register(RegisterRequest request)
     {
-        ErrorOr<AuthenticationResult> registerResult =
-            _authenticationService.Register(request.FirsName, request.LastName, request.Email, request.Password);
+        var command = new RegisterCommand(request.FirsName, request.LastName, request.Email, request.Password);
+
+        ErrorOr<AuthenticationResult> registerResult = await _mediator.Send(command);
 
 
         return registerResult.Match(
@@ -42,9 +46,13 @@ public class AuthenticationController : ApiController
     }
 
     [HttpPost("login")]
-    public IActionResult Login(LoginRequest request)
+    public async Task<IActionResult> Login(LoginRequest request)
     {
-        var loginResult = _authenticationService.Login(request.Email, request.Password);
+
+        var query = new LoginQuery(request.Email, request.Password);
+
+        ErrorOr<AuthenticationResult> loginResult = await _mediator.Send(query);
+
 
  
         if (loginResult.IsError && loginResult.FirstError == BuberDinner.Domain.Common.Errors.Errors.Authentication.InvalidCredentials) 

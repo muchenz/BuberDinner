@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
     //builder.Services.AddControllers(options => options.Filters.Add<ErrorHandlingFilterAttribute>());
     builder.Services.AddControllers();
     builder.Services.AddSingleton<ProblemDetailsFactory, BubberDinnerProblemDetailsFactory>();
+
 }
 
 
