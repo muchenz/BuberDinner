@@ -5,6 +5,7 @@ using BuberDinner.Application.Services.Authentication.Common;
 using BuberDinner.Contracts.Authentication;
 
 using ErrorOr;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,53 +16,46 @@ namespace BuberDinner.Api.Controllers;
 //[ErrorHandlingFilter]
 public class AuthenticationController : ApiController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _mediator;
+    private readonly IMapper _mapper;
 
-    public AuthenticationController(IMediator mediator)
+    public AuthenticationController(ISender mediator, IMapper mapper)
     {
         _mediator = mediator;
+        _mapper = mapper;
     }
 
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
-        var command = new RegisterCommand(request.FirsName, request.LastName, request.Email, request.Password);
+        var command = _mapper.Map<RegisterCommand>(request);
 
         ErrorOr<AuthenticationResult> registerResult = await _mediator.Send(command);
 
 
         return registerResult.Match(
-            authResult => Ok(MapAuthResult(authResult)),
+            authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
             errors => Problem(errors));
     }
-
-    private static AuthenticationResponse MapAuthResult(AuthenticationResult authResult)
-    {
-        return new AuthenticationResponse(
-                        authResult.user.Id,
-                        authResult.user.FirstName,
-                        authResult.user.LastName,
-                        authResult.user.Email,
-                        authResult.Token);
-    }
+       
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginRequest request)
     {
 
-        var query = new LoginQuery(request.Email, request.Password);
+        var query = _mapper.Map<LoginQuery>(request);
 
         ErrorOr<AuthenticationResult> loginResult = await _mediator.Send(query);
 
 
- 
-        if (loginResult.IsError && loginResult.FirstError == BuberDinner.Domain.Common.Errors.Errors.Authentication.InvalidCredentials) 
+
+        if (loginResult.IsError && loginResult.FirstError == BuberDinner.Domain.Common.Errors.Errors.Authentication.InvalidCredentials)
         {
             return Problem(statusCode: StatusCodes.Status401Unauthorized, title: loginResult.FirstError.Description);
         }
 
         return loginResult.Match(
-              authResult => Ok(MapAuthResult(authResult)),
+              authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
               errors => Problem(errors));
     }
 
