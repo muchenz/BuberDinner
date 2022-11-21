@@ -34,7 +34,7 @@ namespace BuberDinner.Domain.Entities
             UpdatedDatetime = updatedDatetime;
         }
 
-        public static User Create(UserId userId,
+        public static User Create(
           string firstName,
           string lastName,
           string email,

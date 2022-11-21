@@ -1,0 +1,13 @@
+@host=https://localhost:7264
+@hostId=123abc
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzY2IwZDgxOC01YzRmLTRhZTctYWRmZi04YzExOGI3YTU5MmEiLCJnaXZlbl9uYW1lIjoiQWxhIiwiZmFtaWx5X25hbWUiOiJLb3dhbHNrYSIsImp0aSI6IjlkNmMwYWYwLTQ1ZDgtNDgwMC05NjY0LWI0MTlkMmZmYWRiZiIsImV4cCI6MTY2OTA1MjkxOCwiaXNzIjoiQnViZXJEaW5uZXIiLCJhdWQiOiJCdWJlckRpbm5lciJ9.Gwi72MplYO0KT-o0B-Nx9wuvtgEmxfopo3cezfUGC8g
+
+POST {{host}}/hosts/{{hostId}}c/menus
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name":"ala",
+    "Description":"desc",
+    "Sections":[]
+}

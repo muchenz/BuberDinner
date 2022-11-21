@@ -32,7 +32,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
 
         var claims = new Claim[]
         {
-            new (JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new (JwtRegisteredClaimNames.Sub, user.Id.Value.ToString()),
             new (JwtRegisteredClaimNames.GivenName, user.FirstName),
             new (JwtRegisteredClaimNames.FamilyName, user.LastName),
             new (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
