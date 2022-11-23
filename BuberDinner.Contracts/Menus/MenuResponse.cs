@@ -13,9 +13,9 @@ public record MenuResponse(
     List<MenuSectionResponse> Sections,
     string HostId,
     List<string> DinnerIds,
-    List<string> NemuDeviewIds,
-    DateTime CreatedDateTime,
-    DateTime UpdatedDateTime);
+    List<string> MenuReviewIds,
+    DateTime CreatedDatetime,
+    DateTime UpdatedDatetime);
 
 
 public record MenuSectionResponse(string Id, string Name, string Description, List<MenuItemResponse> Items);

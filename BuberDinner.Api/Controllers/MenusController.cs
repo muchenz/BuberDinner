@@ -28,7 +28,7 @@ public class MenusController : ApiController
 
 
         return createMenuResult.Match(
-            menu=> Ok(),
+            menu=> Ok(_mapper.Map<MenuResponse>(menu)),
             errors=>Problem(errors)
             );
     }
