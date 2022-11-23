@@ -1,6 +1,6 @@
 @host=https://localhost:7264
 @hostId=123abc
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzY2IwZDgxOC01YzRmLTRhZTctYWRmZi04YzExOGI3YTU5MmEiLCJnaXZlbl9uYW1lIjoiQWxhIiwiZmFtaWx5X25hbWUiOiJLb3dhbHNrYSIsImp0aSI6IjlkNmMwYWYwLTQ1ZDgtNDgwMC05NjY0LWI0MTlkMmZmYWRiZiIsImV4cCI6MTY2OTA1MjkxOCwiaXNzIjoiQnViZXJEaW5uZXIiLCJhdWQiOiJCdWJlckRpbm5lciJ9.Gwi72MplYO0KT-o0B-Nx9wuvtgEmxfopo3cezfUGC8g
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4MDg5OWFkZC1iZTdlLTQ3MGYtYmE0Mi0zYWQwYWVhODk0ZTYiLCJnaXZlbl9uYW1lIjoiQWxhIiwiZmFtaWx5X25hbWUiOiJLb3dhbHNrYSIsImp0aSI6Ijc4N2MzNGIwLTExZWYtNDZlZC05MzM1LTY2NmQ0N2M2YTAwNiIsImV4cCI6MTY3MjgwOTUxNiwiaXNzIjoiQnViZXJEaW5uZXIiLCJhdWQiOiJCdWJlckRpbm5lciJ9._lodxABS4-W792vX-QqTibPNrxasX1HblWDbj4_l04c
 
 POST {{host}}/hosts/{{hostId}}c/menus
 Content-Type: application/json
@@ -9,5 +9,34 @@ Authorization: Bearer {{token}}
 {
     "name":"ala",
     "Description":"desc",
-    "Sections":[]
+    "Sections":[
+        {
+            "name":"sec1",
+            "Description":"desc1",
+            "Items":[
+                {
+                    "name":"item1",
+                      "Description":"item1"     
+                },
+                {
+                     "name":"item2",
+                      "Description":"item2"  
+                }
+            ]    
+        },
+        {
+            "name":"sec2",
+            "Description":"desc2",
+            "Items":[
+                {
+                    "name":"item1",
+                      "Description":"item1"     
+                },
+                {
+                     "name":"item2",
+                      "Description":"item2"  
+                }
+            ]     
+        }
+    ]
 }

@@ -22,11 +22,19 @@ public static class DependecyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddAuth(services, configuration);
+        AddPersistance(services, configuration);
+
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
-        services.AddScoped<IUserRepository, UserRepository>();
         return services;
 
+    }
+    private static IServiceCollection AddPersistance(IServiceCollection services, IConfiguration configuration)
+    {
+
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IMenuRepository, MenuRepository>();
+        return services;
     }
 
     private static void AddAuth(IServiceCollection services, IConfiguration configuration)

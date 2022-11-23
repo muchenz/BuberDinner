@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BuberDinner.Contracts.Menus;
-public record CreateMenuRequest(string Name, string Description, List<MenuSection> Sections);
+public record CreateMenuRequest(string Name, string Description, List<MenuSectionRequest> Sections);
 
-public record MenuSection(string Name, string Description, List<MenuItem> Items);
+public record MenuSectionRequest(string Name, string Description, List<MenuItemRequest> Items);
 
-public record MenuItem(string Name, string Description);
+public record MenuItemRequest(string Name, string Description);

@@ -30,17 +30,18 @@ public sealed class Menu : AggregateRoot<MenuId>
     public DateTime CreatedDatetime { get; }
     public DateTime UpdatedDatetime { get; }
 
-    private Menu(MenuId menuId, string name, string description, HostId hostId, DateTime createdDatetime, DateTime updatedDatetime):base(menuId)
+    private Menu(MenuId menuId, string name, string description, HostId hostId, List<MenuSection> menuSections,DateTime createdDatetime, DateTime updatedDatetime):base(menuId)
     {
         Name = name;
         Description = description;
         HostId = hostId;
         CreatedDatetime = createdDatetime;
         UpdatedDatetime = updatedDatetime;
+        _sections.AddRange(menuSections);
     }
 
-    public static Menu Create(string name, string description, HostId hostId)
+    public static Menu Create(string name, string description, HostId hostId, List<MenuSection> menuSections)
     {
-        return new(MenuId.CreateUnique(), name, description, hostId, DateTime.UtcNow, DateTime.UtcNow);
+        return new(MenuId.CreateUnique(), name, description, hostId, menuSections, DateTime.UtcNow, DateTime.UtcNow);
     }
 }
