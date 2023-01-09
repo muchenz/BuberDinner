@@ -41,7 +41,12 @@ public sealed class DinnerRating : Entity<RatingId>
     {
         return new DinnerRating(RatingId.CreateUnique(), hostId, dinnerId, rating, DateTime.UtcNow, DateTime.UtcNow);
     }
+#pragma warning disable CS8618
+    private DinnerRating()
+    {
 
+    }
+#pragma warning restore CS8618
 }
 
 

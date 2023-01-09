@@ -7,13 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuberDinner.Infrastructure.Persistence;
+namespace BuberDinner.Infrastructure.Persistence.Repositories;
 public class MenuRepository : IMenuRepository
 {
-    static readonly List<Menu> _menu = new List<Menu>();
+    private readonly BuberDinnerDbContext _dbContext;
 
+    public MenuRepository(BuberDinnerDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
     public void Add(Menu menu)
     {
-        _menu.Add(menu);
+        _dbContext.Add(menu);
+
+        _dbContext.SaveChanges();
     }
 }

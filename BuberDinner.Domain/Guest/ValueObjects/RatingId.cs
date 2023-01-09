@@ -22,5 +22,11 @@ public sealed class RatingId : ValueObject
     {
         yield return Value;
     }
+#pragma warning disable CS8618
+    private RatingId()
+    {
+
+    }
+#pragma warning restore CS8618
 }
 

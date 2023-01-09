@@ -42,5 +42,12 @@ namespace BuberDinner.Domain.Entities
         {
             return new User(UserId.CreateUnique(), firstName, lastName, email, password, DateTime.UtcNow, DateTime.UtcNow);
         }
+
+#pragma warning disable CS8618
+        private User()
+        {
+
+        }
+#pragma warning restore CS8618
     }
 }

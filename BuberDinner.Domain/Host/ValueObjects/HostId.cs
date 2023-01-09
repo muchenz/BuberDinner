@@ -18,9 +18,16 @@ public sealed class HostId : ValueObject
 
     public static HostId CreateUnique() => new HostId(Guid.NewGuid());
     public static HostId Create(string hostId) => new HostId(Guid.Parse(hostId));
+    public static HostId Create(Guid hostId) => new HostId(hostId);
     public override IEnumerable<object> GetEqualityComponent()
     {
         yield return Value;
     }
+#pragma warning disable CS8618
+    private HostId()
+    {
+
+    }
+#pragma warning restore CS8618
 }
 

@@ -38,4 +38,10 @@ public sealed class Bill : AggregateRoot<BillId>
     {
         return new(BillId.CreateUnique(), dinnerId, guestId, hostId, DateTime.UtcNow, DateTime.UtcNow);
     }
+#pragma warning disable CS8618
+    private Bill()
+    {
+
+    }
+#pragma warning restore CS8618
 }

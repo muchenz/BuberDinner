@@ -65,6 +65,13 @@ public sealed class Guest : AggregateRoot<GuestId>
     {
         return new Guest(GuestId.CreateUnique(), firstName, lastName, profileImage, averageRating, DateTime.UtcNow, DateTime.UtcNow);
     }
+
+#pragma warning disable CS8618
+    private Guest()
+    {
+
+    }
+#pragma warning restore CS8618
 }
 
 

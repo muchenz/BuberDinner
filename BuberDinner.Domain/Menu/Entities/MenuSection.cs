@@ -25,4 +25,11 @@ public sealed  class MenuSection:Entity<MenuSectionId>
     {
         return new(MenuSectionId.CreateUnique(), name, description, menuItems);
     }
+
+#pragma warning disable CS8618
+    private MenuSection()
+    {
+
+    }
+#pragma warning restore CS8618
 }

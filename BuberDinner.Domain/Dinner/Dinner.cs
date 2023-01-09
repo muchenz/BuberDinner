@@ -94,6 +94,12 @@ public sealed class Dinner : AggregateRoot<DinnerId>
         return new Dinner(DinnerId.CreateUnique(), name, description, DateTime.UtcNow, DateTime.UtcNow, DateTime.UtcNow, DateTime.UtcNow, status,
             isPublic, maxGests, price, hostId, menuId, imageUrl, location, DateTime.UtcNow, DateTime.UtcNow);
     }
+#pragma warning disable CS8618
+    private Dinner()
+    {
 
-  
+    }
+#pragma warning restore CS8618
+
+
 }

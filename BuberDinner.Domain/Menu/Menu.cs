@@ -47,4 +47,12 @@ public sealed class Menu : AggregateRoot<MenuId>
     {
         return new(MenuId.CreateUnique(), name, description, hostId, menuSections, DateTime.UtcNow, DateTime.UtcNow);
     }
+
+#pragma warning disable CS8618
+    private Menu()
+    {
+
+    }
+#pragma warning restore CS8618
+
 }

@@ -21,5 +21,11 @@ public sealed class ReservationId : ValueObject
     {
         yield return Value;
     }
+#pragma warning disable CS8618
+    private ReservationId()
+    {
+
+    }
+#pragma warning restore CS8618
 }
 

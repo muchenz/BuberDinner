@@ -21,4 +21,15 @@ public sealed class MenuId : ValueObject
     {
         yield return Value;
     }
+
+    public static MenuId Create(Guid value)
+    {
+        return new MenuId(value);
+    }
+#pragma warning disable CS8618
+    private MenuId()
+    {
+
+    }
+#pragma warning restore CS8618
 }

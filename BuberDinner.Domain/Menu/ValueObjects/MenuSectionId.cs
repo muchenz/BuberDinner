@@ -17,4 +17,15 @@ public class MenuSectionId : ValueObject
     {
         yield return Value;
     }
+
+    public static MenuSectionId Create(Guid value)
+    {
+        return new MenuSectionId(value);
+    }
+#pragma warning disable CS8618
+    private MenuSectionId()
+    {
+
+    }
+#pragma warning restore CS8618
 }

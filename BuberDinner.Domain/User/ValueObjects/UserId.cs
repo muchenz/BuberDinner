@@ -6,22 +6,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuberDinner.Domain.Guest.ValueObjects
+namespace BuberDinner.Domain.Guest.ValueObjects;
+
+public sealed class UserId : ValueObject
 {
-    public sealed class UserId : ValueObject
+    public Guid Value { get; }
+
+    private UserId(Guid value)
     {
-        public Guid Value { get; }
-
-        private UserId(Guid value)
-        {
-            Value = value;
-        }
-
-        public static UserId CreateUnique() => new UserId(Guid.NewGuid());
-
-        public override IEnumerable<object> GetEqualityComponent()
-        {
-            yield return Value;
-        }
+        Value = value;
     }
+
+    public static UserId CreateUnique() => new UserId(Guid.NewGuid());
+
+    public override IEnumerable<object> GetEqualityComponent()
+    {
+        yield return Value;
+    }
+
+#pragma warning disable CS8618
+    private UserId()
+    {
+
+    }
+#pragma warning restore CS8618
 }

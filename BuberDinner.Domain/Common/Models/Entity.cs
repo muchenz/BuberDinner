@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 namespace BuberDinner.Domain.Common.Models;
 public abstract class Entity<TId> :IEquatable<Entity<TId>> where TId : notnull
 {
+    protected Entity()
+    {
+
+    }
     public TId Id { get; protected set; }
 
     protected Entity(TId id)

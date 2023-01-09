@@ -22,5 +22,11 @@ public sealed class BillId : ValueObject
     {
         yield return Value;
     }
+#pragma warning disable CS8618
+    private BillId()
+    {
+
+    }
+#pragma warning restore CS8618
 }
 

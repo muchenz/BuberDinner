@@ -43,4 +43,13 @@ public sealed class Reservation : Entity<ReservationId>
     {
         return new (ReservationId.CreateUnique(), guestCount, reservationStatus, guestId, billId, DateTime.UtcNow, DateTime.UtcNow, DateTime.UtcNow);
     }
+
+#pragma warning disable CS8618
+    private Reservation()
+    {
+
+    }
+#pragma warning restore CS8618
+
+
 }

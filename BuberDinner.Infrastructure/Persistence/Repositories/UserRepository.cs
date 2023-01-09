@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuberDinner.Infrastructure.Persistence;
+namespace BuberDinner.Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    static readonly List<User> _users= new List<User>();
+    static readonly List<User> _users = new List<User>();
     public void Add(User user)
     {
         _users.Add(user);
