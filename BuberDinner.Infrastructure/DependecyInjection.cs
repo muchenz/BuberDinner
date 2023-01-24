@@ -33,9 +33,10 @@ public static class DependecyInjection
     }
     private static IServiceCollection AddPersistance(IServiceCollection services, IConfiguration configuration)
     {
+        var connectionString = configuration.GetConnectionString("Default");
         services.AddDbContext<BuberDinnerDbContext>(options =>
         {
-            options.UseSqlServer();
+            options.UseSqlServer(connectionString);
         });
 
         services.AddScoped<IUserRepository, UserRepository>();
