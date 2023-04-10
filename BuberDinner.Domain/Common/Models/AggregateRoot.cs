@@ -15,3 +15,20 @@ public abstract class AggregateRoot<TId> : Entity<TId> where TId : notnull
 
     }
 }
+
+
+public abstract class AggregateRoot2<TId, TIdType> : Entity<TId> where TId : AggregateRoot<TIdType>
+{
+    public new AggregateRoot<TIdType> Id { get; protected set; }
+    protected AggregateRoot2(TId id) 
+    {
+        Id = id;
+    }
+#pragma warning disable CS8618
+    protected AggregateRoot2()
+    {
+
+    }
+#pragma warning restore CS8618
+
+}

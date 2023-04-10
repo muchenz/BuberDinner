@@ -1,4 +1,5 @@
 ﻿using BuberDinner.Domain.Common.Models;
+using BuberDinner.Domain.Guest.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BuberDinner.Domain.Menu.ValueObjects;
-public sealed class MenuId : ValueObject
+public sealed class MenuId : AggregateRootId<Guid>
 {
-    public Guid Value { get;  }
+    public override Guid Value { get; protected set; }
 
     private MenuId(Guid value)
     {
