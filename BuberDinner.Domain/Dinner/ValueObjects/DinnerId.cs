@@ -1,4 +1,5 @@
 ﻿using BuberDinner.Domain.Common.Models;
+using BuberDinner.Domain.Guest.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,8 @@ public sealed class DinnerId : ValueObject
     {
         Value = value;
     }
-
+    public static DinnerId Create(string hostId) => new DinnerId(Guid.Parse(hostId));
+    public static DinnerId Create(Guid hostId) => new DinnerId(hostId);
     public static DinnerId CreateUnique() => new DinnerId(Guid.NewGuid());
 
     public override IEnumerable<object> GetEqualityComponent()

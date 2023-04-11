@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace BuberDinner.Domain.MenuReview;
 
-public sealed class MenuReview : AggregateRoot<MenuReviewId>
+public sealed class MenuReview : AggregateRoot2<MenuReviewId, Guid>
 {
     public Rating Rating { get; }
     public string Comment { get; }
@@ -62,6 +62,12 @@ public sealed class MenuReview : AggregateRoot<MenuReviewId>
     {
         return new MenuReview(MenuReviewId.CreateUnique(), rating, comment, hostId, menuId, guestId, dinnerId, DateTime.UtcNow, DateTime.UtcNow);
     }
+#pragma warning disable CS8618
+    private MenuReview()
+    {
+
+    }
+#pragma warning restore CS8618
 
 }
 
