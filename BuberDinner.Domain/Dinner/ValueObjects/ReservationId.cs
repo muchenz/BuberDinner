@@ -14,7 +14,8 @@ public sealed class ReservationId : ValueObject
     {
         Value = value;
     }
-
+    public static ReservationId Create(string hostId) => new ReservationId(Guid.Parse(hostId));
+    public static ReservationId Create(Guid hostId) => new ReservationId(hostId);
     public static ReservationId CreateUnique() => new ReservationId(Guid.NewGuid());
 
     public override IEnumerable<object> GetEqualityComponent()

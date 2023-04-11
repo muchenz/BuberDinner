@@ -82,7 +82,7 @@ internal class HostConfiguration : IEntityTypeConfiguration<Host>
             dib.HasKey("Id");
 
             dib.Property(x => x.Value)
-            .HasColumnName("HostMenuId")
+            .HasColumnName("MenuId")
             .ValueGeneratedNever();
             
         });

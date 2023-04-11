@@ -31,7 +31,7 @@ public sealed class Guest : AggregateRoot<GuestId>
     public string LastName { get; }
     public Uri ProfileImage { get; }
     public AverageRating AverageRating { get; }
-    public IReadOnlyList<UserId> UserId => _userIds.AsReadOnly();
+    public IReadOnlyList<UserId> UserIds => _userIds.AsReadOnly();
     public IReadOnlyList<DinnerId> UpcomingDinnerIds => _upcomingDinnerIds.AsReadOnly();
     public IReadOnlyList<DinnerId> PastDinnerIds => _pastDinnerIds.AsReadOnly();
     public IReadOnlyList<DinnerId> PendingDinnerIds => _pendingDinnerIds.AsReadOnly();

@@ -15,7 +15,8 @@ public sealed class BillId : ValueObject
     {
         Value = value;
     }
-
+    public static BillId Create(string hostId) => new BillId(Guid.Parse(hostId));
+    public static BillId Create(Guid hostId) => new BillId(hostId);
     public static BillId CreateUnique() => new BillId(Guid.NewGuid());
 
     public override IEnumerable<object> GetEqualityComponent()

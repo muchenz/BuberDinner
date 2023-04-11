@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuberDinner.Infrastructure.Migrations
 {
     [DbContext(typeof(BuberDinnerDbContext))]
-    [Migration("20230411154920_After_add_MenuReviewConfiguration")]
-    partial class AfteraddMenuReviewConfiguration
+    [Migration("20230411230157_After_User_menuReview_menu_host_guest")]
+    partial class AfterUsermenuReviewmenuhostguest
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,31 @@ namespace BuberDinner.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BuberDinner.Domain.Guest.Guest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ProfileImage")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Guests", (string)null);
+                });
 
             modelBuilder.Entity("BuberDinner.Domain.Host.Host", b =>
                 {
@@ -103,6 +128,242 @@ namespace BuberDinner.Infrastructure.Migrations
                     b.ToTable("MenuReviews", (string)null);
                 });
 
+            modelBuilder.Entity("BuberDinner.Domain.Guest.Guest", b =>
+                {
+                    b.OwnsMany("BuberDinner.Domain.Bill.ValueObjects.BillId", "BillIds", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Value")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("BillId");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("GuestId");
+
+                            b1.ToTable("GuestBillIds", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.OwnsMany("BuberDinner.Domain.Guest.Entities.DinnerRating", "DinnerRatings", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("RatingId");
+
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("DinnerId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("HostId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.HasKey("Id", "GuestId");
+
+                            b1.HasIndex("GuestId");
+
+                            b1.ToTable("DinnerRatings", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+
+                            b1.OwnsOne("BuberDinner.Domain.Common.ValueObjects.Rating", "Rating", b2 =>
+                                {
+                                    b2.Property<Guid>("DinnerRatingId")
+                                        .HasColumnType("uniqueidentifier");
+
+                                    b2.Property<Guid>("DinnerRatingGuestId")
+                                        .HasColumnType("uniqueidentifier");
+
+                                    b2.Property<double>("Value")
+                                        .HasColumnType("float");
+
+                                    b2.HasKey("DinnerRatingId", "DinnerRatingGuestId");
+
+                                    b2.ToTable("DinnerRatings");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("DinnerRatingId", "DinnerRatingGuestId");
+                                });
+
+                            b1.Navigation("Rating")
+                                .IsRequired();
+                        });
+
+                    b.OwnsOne("BuberDinner.Domain.Common.ValueObjects.AverageRating", "AverageRating", b1 =>
+                        {
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("NumRatings")
+                                .HasColumnType("int");
+
+                            b1.Property<double>("Value")
+                                .HasColumnType("float");
+
+                            b1.HasKey("GuestId");
+
+                            b1.ToTable("Guests");
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.OwnsMany("BuberDinner.Domain.MenuReview.ValueObjects.MenuReviewId", "MenuReviewIds", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Value")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("MenuReviewId");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("GuestId");
+
+                            b1.ToTable("GuestMenuReviewIds", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.OwnsMany("BuberDinner.Domain.Dinner.ValueObjects.DinnerId", "PastDinnerIds", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Value")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("PastDinnerId");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("GuestId");
+
+                            b1.ToTable("GuestPastDinnerIds", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.OwnsMany("BuberDinner.Domain.Dinner.ValueObjects.DinnerId", "PendingDinnerIds", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Value")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("PendingDinnerId");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("GuestId");
+
+                            b1.ToTable("GuestPendingDinnerIds", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.OwnsMany("BuberDinner.Domain.Dinner.ValueObjects.DinnerId", "UpcomingDinnerIds", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Value")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("UpcomingDinnerId");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("GuestId");
+
+                            b1.ToTable("GuestUpcomingDinnerIds", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.OwnsMany("BuberDinner.Domain.Guest.ValueObjects.UserId", "UserIds", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Value")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("UserId");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("GuestId");
+
+                            b1.ToTable("GuestUserIds", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.Navigation("AverageRating")
+                        .IsRequired();
+
+                    b.Navigation("BillIds");
+
+                    b.Navigation("DinnerRatings");
+
+                    b.Navigation("MenuReviewIds");
+
+                    b.Navigation("PastDinnerIds");
+
+                    b.Navigation("PendingDinnerIds");
+
+                    b.Navigation("UpcomingDinnerIds");
+
+                    b.Navigation("UserIds");
+                });
+
             modelBuilder.Entity("BuberDinner.Domain.Host.Host", b =>
                 {
                     b.OwnsOne("BuberDinner.Domain.Common.ValueObjects.AverageRating", "AverageRating", b1 =>
@@ -162,7 +423,7 @@ namespace BuberDinner.Infrastructure.Migrations
 
                             b1.Property<Guid>("Value")
                                 .HasColumnType("uniqueidentifier")
-                                .HasColumnName("HostMenuId");
+                                .HasColumnName("MenuId");
 
                             b1.HasKey("Id");
 
@@ -285,7 +546,7 @@ namespace BuberDinner.Infrastructure.Migrations
 
                             b1.HasIndex("MenuId");
 
-                            b1.ToTable("MenuIds", (string)null);
+                            b1.ToTable("MenuDinnerIds", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("MenuId");

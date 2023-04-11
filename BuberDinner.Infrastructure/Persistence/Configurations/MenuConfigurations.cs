@@ -48,7 +48,7 @@ internal class MenuConfigurations : IEntityTypeConfiguration<Menu>
     {
         builder.OwnsMany(x => x.DinnerIds, dib =>
         {
-            dib.ToTable("MenuIds");
+            dib.ToTable("MenuDinnerIds");
 
             dib.WithOwner().HasForeignKey("MenuId");
 

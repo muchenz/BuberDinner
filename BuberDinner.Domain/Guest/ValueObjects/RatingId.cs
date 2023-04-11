@@ -1,4 +1,5 @@
-﻿using BuberDinner.Domain.Common.Models;
+﻿using BuberDinner.Domain.Bill.ValueObjects;
+using BuberDinner.Domain.Common.Models;
 using BuberDinner.Domain.Dinner.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ public sealed class RatingId : ValueObject
     {
         Value = value;
     }
-
+    public static RatingId Create(string hostId) => new RatingId(Guid.Parse(hostId));
+    public static RatingId Create(Guid hostId) => new RatingId(hostId);
     public static RatingId CreateUnique() => new RatingId(Guid.NewGuid());
 
     public override IEnumerable<object> GetEqualityComponent()
