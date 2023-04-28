@@ -19,7 +19,7 @@ public sealed class Price : ValueObject
         Currency = currency;
     }
 
-    public static Price CreateUnique(decimal value, Currency currency) => new Price(value, currency);
+    public static Price CreateNew(decimal value, Currency currency) => new Price(value, currency);
 
     public override IEnumerable<object> GetEqualityComponent()
     {

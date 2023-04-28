@@ -6,13 +6,40 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BuberDinner.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AfterUsermenuReviewmenuhostguest : Migration
+    public partial class AfterUsermenuReviewmenuhostguestandDinner : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "MenuIds");
+
+            migrationBuilder.CreateTable(
+                name: "Dinners",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    StartDatetime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDatetime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StartedDatetime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndedDatetime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    IsPublic = table.Column<bool>(type: "bit", nullable: false),
+                    MaxGests = table.Column<int>(type: "int", nullable: false),
+                    HostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MenuId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LocationName = table.Column<string>(name: "Location_Name", type: "nvarchar(max)", nullable: false),
+                    LocationAddress = table.Column<string>(name: "Location_Address", type: "nvarchar(max)", nullable: false),
+                    LocationLatitude = table.Column<double>(name: "Location_Latitude", type: "float", nullable: false),
+                    LocationLongitude = table.Column<double>(name: "Location_Longitude", type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dinners", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Guests",
@@ -82,6 +109,31 @@ namespace BuberDinner.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MenuReviews", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reservations",
+                columns: table => new
+                {
+                    ReservationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DinnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GuestCount = table.Column<int>(type: "int", nullable: false),
+                    ReservationStatus = table.Column<int>(type: "int", nullable: false),
+                    GuestId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BillId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ArrivalDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservations", x => new { x.ReservationId, x.DinnerId });
+                    table.ForeignKey(
+                        name: "FK_Reservations_Dinners_DinnerId",
+                        column: x => x.DinnerId,
+                        principalTable: "Dinners",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -314,6 +366,11 @@ namespace BuberDinner.Infrastructure.Migrations
                 name: "IX_MenuDinnerIds_MenuId",
                 table: "MenuDinnerIds",
                 column: "MenuId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_DinnerId",
+                table: "Reservations",
+                column: "DinnerId");
         }
 
         /// <inheritdoc />
@@ -353,10 +410,16 @@ namespace BuberDinner.Infrastructure.Migrations
                 name: "MenuReviews");
 
             migrationBuilder.DropTable(
+                name: "Reservations");
+
+            migrationBuilder.DropTable(
                 name: "Guests");
 
             migrationBuilder.DropTable(
                 name: "Hosts");
+
+            migrationBuilder.DropTable(
+                name: "Dinners");
 
             migrationBuilder.CreateTable(
                 name: "MenuIds",

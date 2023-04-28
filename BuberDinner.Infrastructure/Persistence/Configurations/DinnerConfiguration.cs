@@ -5,6 +5,7 @@ using BuberDinner.Domain.Dinner;
 using BuberDinner.Domain.Dinner.Entities;
 using BuberDinner.Domain.Dinner.ValueObjects;
 using BuberDinner.Domain.Guest;
+using BuberDinner.Domain.Guest.ValueObjects;
 using BuberDinner.Domain.Host.ValueObjects;
 using BuberDinner.Domain.Menu.ValueObjects;
 using Microsoft.EntityFrameworkCore;
@@ -49,7 +50,7 @@ internal class DinnerConfiguration : IEntityTypeConfiguration<Dinner>
         builder.Property(x => x.IsPublic);
         builder.Property(x => x.MaxGests);
 
-        builder.OwnsOne(x => x.Price);
+        //builder.OwnsOne(x => x.Price);
 
         builder.Property(x => x.HostId)
             .HasConversion(
@@ -83,14 +84,19 @@ internal class DinnerConfiguration : IEntityTypeConfiguration<Dinner>
                     id => id.Value,
                     value => ReservationId.Create(value));
 
-            sb.HasKey("Id", "GuestId");
+            sb.HasKey("Id", "DinnerId");
 
 
 
-            sb.Property(x => x.BillId)
+            sb.Property(x => x.GuestId)
                 .HasConversion(
                     id => id.Value,
-                    value => BillId.Create(value));
+                    value => GuestId.Create(value));
+
+            sb.Property(x => x.BillId)
+              .HasConversion(
+                  id => id.Value,
+                  value => BillId.Create(value));
 
             sb.Property(x => x.GuestCount);
             sb.Property(x => x.ReservationStatus);
@@ -109,31 +115,3 @@ internal class DinnerConfiguration : IEntityTypeConfiguration<Dinner>
 
 
 
-public sealed class Dinner2 : AggregateRoot<DinnerId>
-{
-    private readonly List<Reservation> _reservations = new();
-
-    public string Name { get; }
-    public string Description { get; }
-
-    public DateTime StartDatetime { get; }
-    public DateTime EndDatetime { get; }
-
-    public DateTime StartedDatetime { get; }
-    public DateTime EndedDatetime { get; }
-
-    public DinnerStatus Status { get; }
-    public bool IsPublic { get; }
-    public int MaxGests { get; }
-    public Price Price { get; }
-    public HostId HostId { get; }
-    public MenuId MenuId { get; }
-
-    public Uri ImageUrl { get; }
-    public Location Location { get; }
-
-    public IReadOnlyList<Reservation> Reservations => _reservations.AsReadOnly();
-    public DateTime CreatedDatetime { get; }
-    public DateTime UpdatedDatetime { get; }
-
-}
