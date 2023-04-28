@@ -28,6 +28,8 @@ namespace BuberDinner.Infrastructure.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     IsPublic = table.Column<bool>(type: "bit", nullable: false),
                     MaxGests = table.Column<int>(type: "int", nullable: false),
+                    PriceAmount = table.Column<decimal>(name: "Price_Amount", type: "decimal(18,2)", nullable: false),
+                    PriceCurrency = table.Column<int>(name: "Price_Currency", type: "int", nullable: false),
                     HostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MenuId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),

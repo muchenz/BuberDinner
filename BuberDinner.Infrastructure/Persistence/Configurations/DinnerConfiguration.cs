@@ -50,7 +50,9 @@ internal class DinnerConfiguration : IEntityTypeConfiguration<Dinner>
         builder.Property(x => x.IsPublic);
         builder.Property(x => x.MaxGests);
 
-        //builder.OwnsOne(x => x.Price);
+        builder.OwnsOne(x => x.Price)
+            .Property(p => p.Amount)
+            .HasColumnType("decimal(18,2)");
 
         builder.Property(x => x.HostId)
             .HasConversion(
@@ -61,7 +63,7 @@ internal class DinnerConfiguration : IEntityTypeConfiguration<Dinner>
            .HasConversion(
            id => id.Value,
            value => MenuId.Create(value));
-        
+
         builder.Property(x => x.ImageUrl);
 
         builder.OwnsOne(x => x.Location);

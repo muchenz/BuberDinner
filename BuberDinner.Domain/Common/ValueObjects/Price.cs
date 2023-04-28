@@ -10,12 +10,12 @@ using static BuberDinner.Domain.Common.Enums.Enums;
 namespace BuberDinner.Domain.Common.ValueObjects;
 public sealed class Price : ValueObject
 {
-    public decimal Amount { get; }
-    public Currency Currency { get; }
+    public decimal Amount { get; private set; }
+    public Currency Currency { get; private set; }
 
-    private Price(decimal value, Currency currency)
+    private Price(decimal amount, Currency currency)
     {
-        Amount = value;
+        Amount = amount;
         Currency = currency;
     }
 

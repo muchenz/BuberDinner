@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuberDinner.Infrastructure.Migrations
 {
     [DbContext(typeof(BuberDinnerDbContext))]
-    [Migration("20230428174128_After_User_menuReview_menu_host_guest_and_Dinner")]
+    [Migration("20230428181446_After_User_menuReview_menu_host_guest_and_Dinner")]
     partial class AfterUsermenuReviewmenuhostguestandDinner
     {
         /// <inheritdoc />
@@ -208,6 +208,25 @@ namespace BuberDinner.Infrastructure.Migrations
                                 .HasForeignKey("DinnerId");
                         });
 
+                    b.OwnsOne("BuberDinner.Domain.Common.ValueObjects.Price", "Price", b1 =>
+                        {
+                            b1.Property<Guid>("DinnerId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<decimal>("Amount")
+                                .HasColumnType("decimal(18,2)");
+
+                            b1.Property<int>("Currency")
+                                .HasColumnType("int");
+
+                            b1.HasKey("DinnerId");
+
+                            b1.ToTable("Dinners");
+
+                            b1.WithOwner()
+                                .HasForeignKey("DinnerId");
+                        });
+
                     b.OwnsMany("BuberDinner.Domain.Dinner.Entities.Reservation", "Reservations", b1 =>
                         {
                             b1.Property<Guid>("Id")
@@ -249,6 +268,9 @@ namespace BuberDinner.Infrastructure.Migrations
                         });
 
                     b.Navigation("Location")
+                        .IsRequired();
+
+                    b.Navigation("Price")
                         .IsRequired();
 
                     b.Navigation("Reservations");
