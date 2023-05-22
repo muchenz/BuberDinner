@@ -18,7 +18,7 @@ namespace BuberDinner.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddMediatR(typeof(DependecyInjection).Assembly);
+            services.AddMediatR(a=>a.RegisterServicesFromAssembly(typeof(DependecyInjection).Assembly));
             
              //services.AddScoped<IPipelineBehavior<RegisterCommand, ErrorOr<AuthenticationResult>>, ValidateRegisterCommandBehavior>();
             //services.AddScoped<IValidator<RegisterCommand>, RegisterCommandValidator>();

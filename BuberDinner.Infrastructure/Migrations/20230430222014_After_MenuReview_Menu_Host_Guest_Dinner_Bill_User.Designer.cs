@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuberDinner.Infrastructure.Migrations
 {
     [DbContext(typeof(BuberDinnerDbContext))]
-    [Migration("20230428225431_After_MenuReview_Menu_Host_Guest_Dinner_Bill_User")]
+    [Migration("20230430222014_After_MenuReview_Menu_Host_Guest_Dinner_Bill_User")]
     partial class AfterMenuReviewMenuHostGuestDinnerBillUser
     {
         /// <inheritdoc />

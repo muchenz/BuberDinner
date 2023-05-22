@@ -23,6 +23,7 @@ public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, Error
     {
         await Task.CompletedTask;
         //create menu
+
         var menu = Menu.Create
             (request.Name,
             request.Description,

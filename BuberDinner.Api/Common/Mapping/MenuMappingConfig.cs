@@ -31,7 +31,7 @@ public class MenuMappingConfig : IRegister
 
 
         config.NewConfig<Menu, MenuResponse>()
-            .Map(dest => dest.Id, src => src.Id.Value)
+            .Map(dest => dest.Id, src => ((Menu)src).Id.Value)
             .Map(dest => dest.AverageRating, src =>  src.AverageRating.NumRatings > 0 ? (float?)src.AverageRating.Value : null)
             .Map(desc => desc.HostId, src => src.HostId.Value)
             .Map(desc => desc.DinnerIds, src => src.DinnerIds.Select(a => a.Value))

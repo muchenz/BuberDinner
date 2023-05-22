@@ -20,7 +20,7 @@ public abstract class AggregateRoot<TId> : Entity<TId> where TId : notnull
 public abstract class AggregateRoot2<TId, TIdType> : Entity<TId> where TId : AggregateRootId<TIdType>
 {
     public new AggregateRootId<TIdType> Id { get; protected set; }
-    protected AggregateRoot2(TId id) 
+    protected AggregateRoot2(TId id) :base(id) 
     {
         Id = id;
     }

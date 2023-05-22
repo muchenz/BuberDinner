@@ -26,7 +26,7 @@ internal class MenuConfigurations : IEntityTypeConfiguration<Menu>
 
     private void ConfigureMenuReviewIdsTable(EntityTypeBuilder<Menu> builder)
     {
-        builder.OwnsMany(x=> x.MenuReviewIds, dib =>
+        builder.OwnsMany(x => x.MenuReviewIds, dib =>
         {
             dib.ToTable("MenuReviewIds");
 
@@ -34,7 +34,7 @@ internal class MenuConfigurations : IEntityTypeConfiguration<Menu>
 
             dib.HasKey("Id");
 
-            dib.Property(x=>x.Value)
+            dib.Property(x => x.Value)
             .HasColumnName("ReviewId")
             .ValueGeneratedNever();
         });
@@ -111,8 +111,8 @@ internal class MenuConfigurations : IEntityTypeConfiguration<Menu>
                 .HasMaxLength(100);
             });
 
-            sb.Navigation(x=>x.Items).Metadata.SetField("_items");
-            sb.Navigation(x=>x.Items).UsePropertyAccessMode(PropertyAccessMode.Field);
+            sb.Navigation(x => x.Items).Metadata.SetField("_items");
+            sb.Navigation(x => x.Items).UsePropertyAccessMode(PropertyAccessMode.Field);
 
         });
 
