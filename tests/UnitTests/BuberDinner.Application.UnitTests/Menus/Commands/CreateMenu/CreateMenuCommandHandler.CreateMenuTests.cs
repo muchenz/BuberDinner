@@ -1,11 +1,13 @@
 ﻿using BuberDinner.Application.Common.Interfaces.Persistence;
 using BuberDinner.Application.Menus.Commands.CreateMenu;
 using BuberDinner.Application.UnitTests.Menus.Commands.TestUtils;
+using BuberDinner.Application.UnitTests.TestUtils.Menus.Extensions;
 using FluentAssertions;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,6 +29,7 @@ public class CreateMenuCommandHandlerTests
         _mockMenuRepository = new Mock<IMenuRepository>();
         _handler = new CreateMenuCommandHandler(_mockMenuRepository.Object);
     }
+   
     public async void HandleCreateMenuCommand_WhenMenuWasValid_ShouldCreateAndReturnMenu()
     {
         //Arrange
@@ -36,6 +39,8 @@ public class CreateMenuCommandHandlerTests
         //Assert
         result.IsError.Should().BeFalse();
 
+        result.Value.ValidateCreatedFrom(createMenuCommand);
 
+        _mockMenuRepository.Verify(m => m.Add(result.Value), Times.Once);
     }
 }
