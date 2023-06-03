@@ -14,10 +14,10 @@ using System.Threading.Tasks;
 namespace BuberDinner.Application.UnitTests.Menus.Commands.CreateMenu;
 public class CreateMenuCommandHandlerTests
 {
-   //T1: sut (system under the test)
-   //T2: Scenario
-   //T3: expected outcome
-   public void T1_T2_T3() { }
+    //T1: sut (system under the test)
+    //T2: Scenario
+    //T3: expected outcome
+    public void T1_T2_T3() { }
 
 
 
@@ -29,18 +29,32 @@ public class CreateMenuCommandHandlerTests
         _mockMenuRepository = new Mock<IMenuRepository>();
         _handler = new CreateMenuCommandHandler(_mockMenuRepository.Object);
     }
-   
-    public async void HandleCreateMenuCommand_WhenMenuWasValid_ShouldCreateAndReturnMenu()
+    [Theory]
+    [MemberData(nameof(ValidCreateMenuCommands))]
+    public async void HandleCreateMenuCommand_WhenMenuWasValid_ShouldCreateAndReturnMenu(CreateMenuCommand createMenuCommand)
     {
         //Arrange
-        var createMenuCommand = CreateMenuCommandUtils.CreateCommand();
+        createMenuCommand = CreateMenuCommandUtils.CreateCommand();
         //Act
-        var result = await _handler.Handle(createMenuCommand, default); 
+        var result = await _handler.Handle(createMenuCommand, default);
         //Assert
         result.IsError.Should().BeFalse();
 
         result.Value.ValidateCreatedFrom(createMenuCommand);
 
         _mockMenuRepository.Verify(m => m.Add(result.Value), Times.Once);
+    }
+
+    public static IEnumerable<object[]> ValidCreateMenuCommands()
+    {
+        yield return new[] { CreateMenuCommandUtils.CreateCommand() };
+        yield return new object[] { CreateMenuCommandUtils.CreateCommand(
+            sections: CreateMenuCommandUtils.CreateSectionsCommand(sectionCount:3)
+            ) };
+        yield return new object[] { CreateMenuCommandUtils.CreateCommand(
+            sections: CreateMenuCommandUtils.CreateSectionsCommand(
+                sectionCount:3,
+                CreateMenuCommandUtils.CreateItemsCommand(3) )
+            ) };
     }
 }

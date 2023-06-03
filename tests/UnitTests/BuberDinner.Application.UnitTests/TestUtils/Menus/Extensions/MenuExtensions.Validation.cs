@@ -21,7 +21,7 @@ public static partial class MenuExtensions
 
     private static void ValidateSection(MenuSection section, CreateMenuSectionCommand command)
     {
-        section.Id.Should().BeNull();
+        section.Id.Should().NotBeNull();
         section.Name.Should().Be(command.Name);
         section.Description.Should().Be(command.Description);
         section.Items.Should().HaveCount(command.Items.Count);
