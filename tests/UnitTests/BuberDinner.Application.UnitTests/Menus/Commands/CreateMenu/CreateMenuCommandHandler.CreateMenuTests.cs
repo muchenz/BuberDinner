@@ -34,7 +34,7 @@ public class CreateMenuCommandHandlerTests
     public async void HandleCreateMenuCommand_WhenMenuWasValid_ShouldCreateAndReturnMenu(CreateMenuCommand createMenuCommand)
     {
         //Arrange
-        createMenuCommand = CreateMenuCommandUtils.CreateCommand();
+        //createMenuCommand = CreateMenuCommandUtils.CreateCommand();
         //Act
         var result = await _handler.Handle(createMenuCommand, default);
         //Assert

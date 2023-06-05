@@ -10,6 +10,6 @@ public static partial class Constants
 {
     public static class Host
     {
-        public static readonly HostId Id = HostId.Create("HostId");
+        public static readonly HostId Id = HostId.Create(Guid.NewGuid());
     }
 }

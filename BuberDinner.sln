@@ -27,7 +27,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionalTests", "Function
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EndToEndTests", "EndToEndTests", "{DF9E7B3D-26DA-42B1-8ED0-C7E61976780D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuberDinner.Application.UnitTests", "tests\UnitTests\BuberDinner.Application.UnitTests\BuberDinner.Application.UnitTests.csproj", "{7805EACC-15B7-4FDF-B7BF-8AED5C1DFCBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuberDinner.Application.UnitTests", "tests\UnitTests\BuberDinner.Application.UnitTests\BuberDinner.Application.UnitTests.csproj", "{7805EACC-15B7-4FDF-B7BF-8AED5C1DFCBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requests", "Requests", "{23B2B336-802E-4756-B94E-FF3BBCA3795B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{73C7A0B8-999C-4DC6-B708-8D98B576F0D9}"
+	ProjectSection(SolutionItems) = preProject
+		Requests\Authentication\Login.http = Requests\Authentication\Login.http
+		Requests\Authentication\Register.http = Requests\Authentication\Register.http
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Menus", "Menus", "{5FF0EC4B-D5D8-4205-B131-4EB100FC4989}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +85,8 @@ Global
 		{C9D57769-B424-40B8-B534-5631150ADDD9} = {E16723EF-F024-406F-AA15-7AE38E47F6C9}
 		{DF9E7B3D-26DA-42B1-8ED0-C7E61976780D} = {E16723EF-F024-406F-AA15-7AE38E47F6C9}
 		{7805EACC-15B7-4FDF-B7BF-8AED5C1DFCBC} = {16D56827-7DD3-4629-940D-F5F885A14E96}
+		{73C7A0B8-999C-4DC6-B708-8D98B576F0D9} = {23B2B336-802E-4756-B94E-FF3BBCA3795B}
+		{5FF0EC4B-D5D8-4205-B131-4EB100FC4989} = {23B2B336-802E-4756-B94E-FF3BBCA3795B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {774E1032-C6EB-4E64-836D-2AE97F3BCACE}
