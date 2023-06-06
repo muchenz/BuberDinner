@@ -38,6 +38,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentic
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Menus", "Menus", "{5FF0EC4B-D5D8-4205-B131-4EB100FC4989}"
+	ProjectSection(SolutionItems) = preProject
+		Requests\Menus\CreateMenu.http = Requests\Menus\CreateMenu.http
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
