@@ -6,4 +6,4 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BuberDinner.Domain.Menu.Events;
-public record MenuCreated(Menu Menu):IDomainEvent;
+public sealed record MenuCreated(Menu Menu):IDomainEvent;

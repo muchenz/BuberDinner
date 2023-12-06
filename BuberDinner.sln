@@ -42,6 +42,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Menus", "Menus", "{5FF0EC4B
 		Requests\Menus\CreateMenu.http = Requests\Menus\CreateMenu.http
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArchitecturelTests", "ArchitecturelTests", "{1D831A8D-F08A-480C-8758-76B9EB7E5361}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BubberDinner.Domain.ArchitectureTests", "BubberDinner.Domain.Tests\BubberDinner.Domain.ArchitectureTests.csproj", "{33B2558A-6D5C-4BD5-82C7-67F9F0E81225}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +76,10 @@ Global
 		{7805EACC-15B7-4FDF-B7BF-8AED5C1DFCBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7805EACC-15B7-4FDF-B7BF-8AED5C1DFCBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7805EACC-15B7-4FDF-B7BF-8AED5C1DFCBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33B2558A-6D5C-4BD5-82C7-67F9F0E81225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33B2558A-6D5C-4BD5-82C7-67F9F0E81225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33B2558A-6D5C-4BD5-82C7-67F9F0E81225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33B2558A-6D5C-4BD5-82C7-67F9F0E81225}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +98,8 @@ Global
 		{7805EACC-15B7-4FDF-B7BF-8AED5C1DFCBC} = {16D56827-7DD3-4629-940D-F5F885A14E96}
 		{73C7A0B8-999C-4DC6-B708-8D98B576F0D9} = {23B2B336-802E-4756-B94E-FF3BBCA3795B}
 		{5FF0EC4B-D5D8-4205-B131-4EB100FC4989} = {23B2B336-802E-4756-B94E-FF3BBCA3795B}
+		{1D831A8D-F08A-480C-8758-76B9EB7E5361} = {E16723EF-F024-406F-AA15-7AE38E47F6C9}
+		{33B2558A-6D5C-4BD5-82C7-67F9F0E81225} = {1D831A8D-F08A-480C-8758-76B9EB7E5361}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {774E1032-C6EB-4E64-836D-2AE97F3BCACE}
