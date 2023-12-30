@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BuberDinner.Infrastructure.Persistence.Configurations;
-internal class OutboxMessageConfiguration : IEntityTypeConfiguration<OutBoxMessage>
+internal class OutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessage>
 {
-    public void Configure(EntityTypeBuilder<OutBoxMessage> builder)
+    public void Configure(EntityTypeBuilder<OutboxMessage> builder)
     {
         builder.ToTable("OutboxMessages");
     }

@@ -9,19 +9,28 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BuberDinner.Infrastructure.Interceptors;
-internal sealed class InsertOutBoxMessagesInterceptor: SaveChangesInterceptor
+public sealed class InsertOutBoxMessagesInterceptor: SaveChangesInterceptor
 {
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
     {
 
         if (eventData.Context is not null)
         {
-
+            InsterOutboxMessages(eventData.Context);
         }
 
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
+    public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
+    {
+
+        if (eventData.Context is not null)
+        {
+            InsterOutboxMessages(eventData.Context);
+        }
+        return base.SavingChanges(eventData, result);
+    }
     private static void InsterOutboxMessages(DbContext dbContext)
     {
         var outboxMessages = dbContext
@@ -37,19 +46,21 @@ internal sealed class InsertOutBoxMessagesInterceptor: SaveChangesInterceptor
                 return domainEvents;
 
             })
-            .Select(domainEvent=> new OutBoxMessage
+            .Select(domainEvent=> new OutboxMessage
             {
                 Id= Guid.NewGuid(),
-                Type=domainEvent.GetType().Name,
+                Type=domainEvent.GetType().FullName!,
                 Content= JsonSerializer.Serialize(domainEvent),
                 OccureredOnUtc= DateTime.UtcNow,
 
-            })
+            }).ToList();
+        
+        dbContext.Set<OutboxMessage>().AddRange(outboxMessages);
     }
 }
 
 
-public sealed class OutBoxMessage
+public sealed class OutboxMessage
 {
     public Guid Id { get; set; }
     public string Type { get; set; } = string.Empty;

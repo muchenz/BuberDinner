@@ -18,11 +18,14 @@ namespace BuberDinner.Infrastructure.Persistence;
 public class BuberDinnerDbContext:DbContext
 {
     private readonly PublishDoimainEventsIntercetor _publishDoimainEventsIntercetor;
+    private readonly InsertOutBoxMessagesInterceptor _insertOutBoxMessagesInterceptor;
 
     public BuberDinnerDbContext(DbContextOptions<BuberDinnerDbContext> options,
-                                PublishDoimainEventsIntercetor publishDoimainEventsIntercetor) : base(options)
+                                PublishDoimainEventsIntercetor publishDoimainEventsIntercetor, 
+                                InsertOutBoxMessagesInterceptor insertOutBoxMessagesInterceptor) : base(options)
     {
         _publishDoimainEventsIntercetor = publishDoimainEventsIntercetor;
+        _insertOutBoxMessagesInterceptor = insertOutBoxMessagesInterceptor;
     }
     public DbSet<Bill> Bills { get; set; } = null!;
     public DbSet<Dinner> Dinners { get; set; } = null!;
@@ -31,6 +34,7 @@ public class BuberDinnerDbContext:DbContext
     public DbSet<Menu> Menus { get; set; } = null!;
     public DbSet<MenuReview> MenuReviews { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
+    public DbSet<OutboxMessage> OutboxMessages { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -43,7 +47,7 @@ public class BuberDinnerDbContext:DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.AddInterceptors(_publishDoimainEventsIntercetor);
+        optionsBuilder.AddInterceptors(_insertOutBoxMessagesInterceptor, _publishDoimainEventsIntercetor);
 
         base.OnConfiguring(optionsBuilder);
     }
