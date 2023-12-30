@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuberDinner.Infrastructure.Migrations
 {
     [DbContext(typeof(BuberDinnerDbContext))]
-    [Migration("20231230094430_Outbox")]
+    [Migration("20231230102755_Outbox")]
     partial class Outbox
     {
         /// <inheritdoc />
@@ -252,6 +252,8 @@ namespace BuberDinner.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProcessedOnUtc");
 
                     b.ToTable("OutboxMessages", (string)null);
                 });

@@ -250,6 +250,8 @@ namespace BuberDinner.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProcessedOnUtc");
+
                     b.ToTable("OutboxMessages", (string)null);
                 });
 

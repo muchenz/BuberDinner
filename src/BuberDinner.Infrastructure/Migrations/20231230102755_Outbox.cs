@@ -26,6 +26,11 @@ namespace BuberDinner.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_OutboxMessages", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OutboxMessages_ProcessedOnUtc",
+                table: "OutboxMessages",
+                column: "ProcessedOnUtc");
         }
 
         /// <inheritdoc />

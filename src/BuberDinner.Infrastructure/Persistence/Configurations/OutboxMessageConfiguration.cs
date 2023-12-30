@@ -13,5 +13,7 @@ internal class OutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessa
     public void Configure(EntityTypeBuilder<OutboxMessage> builder)
     {
         builder.ToTable("OutboxMessages");
+
+        builder.HasIndex(i => i.ProcessedOnUtc);
     }
 }
