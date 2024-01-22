@@ -46,11 +46,6 @@ internal class ProcessOutBoxMessagesJob:IJob
 
             var domainEvent = JsonSerializer.Deserialize(message.Content, type) as IDomainEvent;
 
-            //-----------------------------------
-            //var options = new Newtonsoft.Json.JsonSerializerSettings { TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All };
-
-            //var domainEvent = Newtonsoft.Json.JsonConvert.DeserializeObject<IDomainEvent>(message.Content,options);
-            //---------------------------------------
             if (domainEvent is null)
             {
                 continue;

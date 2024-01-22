@@ -24,19 +24,21 @@ public sealed class Bill : AggregateRoot<BillId>
     public DateTime CreatedDatetime { get; }
     public DateTime UpdatedDatetime { get; }
 
-    private Bill(BillId billId, DinnerId dinnerId, GuestId guestId, HostId hostId, DateTime createdDatetime, DateTime updatedDatetime) :base(billId)
+    private Bill(BillId billId, DinnerId dinnerId, GuestId guestId, HostId hostId, Price price,
+        DateTime createdDatetime, DateTime updatedDatetime) : base(billId)
     {
 
-        DinnerId=  dinnerId;
-        GuestId= guestId;
-        HostId= hostId;
-        CreatedDatetime= createdDatetime;
-        UpdatedDatetime= updatedDatetime;
+        DinnerId = dinnerId;
+        GuestId = guestId;
+        HostId = hostId;
+        CreatedDatetime = createdDatetime;
+        UpdatedDatetime = updatedDatetime;
+        Price = price;
     }
 
-    public static Bill Create(DinnerId dinnerId, GuestId guestId, HostId hostId)
+    public static Bill Create(DinnerId dinnerId, GuestId guestId, HostId hostId, Price price)
     {
-        return new(BillId.CreateUnique(), dinnerId, guestId, hostId, DateTime.UtcNow, DateTime.UtcNow);
+        return new(BillId.CreateUnique(), dinnerId, guestId, hostId, price, DateTime.UtcNow, DateTime.UtcNow);
     }
 #pragma warning disable CS8618
     private Bill()

@@ -25,16 +25,8 @@ internal class OutBoxMessageRepository : IOutBoxMessageRepository
 
     public async Task<List<OutboxMessage>> GetAll()
     {
-        List<OutboxMessage> messages= null;
-        try
-        {
-            messages = await _buberDinnerDbContext.OutboxMessages.Where(a => a.ProcessedOnUtc == null).ToListAsync();
-        }
-        catch (Exception ex)
-        {
+        var messages = await _buberDinnerDbContext.OutboxMessages.Where(a => a.ProcessedOnUtc == null).ToListAsync();
 
-
-        }
         return messages;
     }
 }
