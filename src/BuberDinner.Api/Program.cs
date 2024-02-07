@@ -35,12 +35,7 @@ var app = builder.Build();
 
 }
 
-
-
-
-
-
-
+public partial class Program { }
 
 
 
