@@ -46,7 +46,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArchitecturelTests", "Archi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BubberDinner.Domain.ArchitectureTests", "BubberDinner.Domain.Tests\BubberDinner.Domain.ArchitectureTests.csproj", "{33B2558A-6D5C-4BD5-82C7-67F9F0E81225}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuberDinnerApplication.FunctionalTests", "tests\FunctionalTests\BuberDinnerApplication.FunctionalTests\BuberDinnerApplication.FunctionalTests.csproj", "{E33DF413-C79E-4836-9DE9-573C017438C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuberDinnerApplication.FunctionalTests", "tests\FunctionalTests\BuberDinnerApplication.FunctionalTests\BuberDinnerApplication.FunctionalTests.csproj", "{E33DF413-C79E-4836-9DE9-573C017438C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

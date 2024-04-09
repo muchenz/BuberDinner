@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,15 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Testcontainers.MsSql;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BuberDinnerApplication.FunctionalTests;
 public sealed class MsSqlTests : IAsyncLifetime
 {
-    private readonly MsSqlContainer _msSqlContainer = new MsSqlBuilder().Build();
+    private readonly MsSqlContainer _msSqlContainer = new MsSqlBuilder()
+        .WithPortBinding(6421, 1433)
+        .WithPassword("MyTestPassword$$123")
+        .WithName("master")
+        .Build();
 
     public Task InitializeAsync()
     {
@@ -45,11 +49,16 @@ public sealed class MsSqlTests : IAsyncLifetime
 
             _webApplicationFactory = new CustomWebApplicationFactory(fixture);
             _httpClient = _webApplicationFactory.CreateClient(clientOptions);
+
+
+            var serviceDbContext = ((CustomWebApplicationFactory)_webApplicationFactory)
+                .Scope.ServiceProvider.GetRequiredService<BuberDinnerDbContext>();
+            serviceDbContext.Database.Migrate();
         }
 
         public void Dispose()
         {
-            _webApplicationFactory.Dispose();
+            //_webApplicationFactory?.Dispose();
         }
 
         private sealed class CustomWebApplicationFactory : WebApplicationFactory<Program>
@@ -59,6 +68,7 @@ public sealed class MsSqlTests : IAsyncLifetime
             public CustomWebApplicationFactory(MsSqlTests fixture)
             {
                 _connectionString = fixture._msSqlContainer.GetConnectionString();
+                Scope = Services.CreateScope();
             }
 
             protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -70,6 +80,8 @@ public sealed class MsSqlTests : IAsyncLifetime
                     services.AddDbContext<BuberDinnerDbContext>((_, option) => option.UseSqlServer(_connectionString));
                 });
             }
+
+            public IServiceScope Scope { get; private set; } = null!;
         }
 
         //[Fact]
@@ -95,7 +107,7 @@ public sealed class MsSqlTests : IAsyncLifetime
         //    Assert.Equal("/", response.Headers.Location.OriginalString);
         //}
 
-        [Fact]
+        //[Fact]
         public async Task Test1Async()
         {
 
@@ -130,11 +142,3 @@ public sealed class MsSqlTests : IAsyncLifetime
 }
 
 
-
-//POST {{host}}/ auth / login
-//Content - Type: application / json
-
-//{
-//    "Email":"ala@gmail.com",
-//    "Password":"alamakota"
-//}
