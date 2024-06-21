@@ -19,13 +19,16 @@ public class BuberDinnerDbContext:DbContext
 {
     private readonly PublishDoimainEventsIntercetor _publishDoimainEventsIntercetor;
     private readonly InsertOutBoxMessagesInterceptor _insertOutBoxMessagesInterceptor;
+    private readonly SoftDeleteInterceptor _softDeleteInterceptor;
 
     public BuberDinnerDbContext(DbContextOptions<BuberDinnerDbContext> options,
                                 PublishDoimainEventsIntercetor publishDoimainEventsIntercetor, 
-                                InsertOutBoxMessagesInterceptor insertOutBoxMessagesInterceptor) : base(options)
+                                InsertOutBoxMessagesInterceptor insertOutBoxMessagesInterceptor,
+                                SoftDeleteInterceptor softDeleteInterceptor) : base(options)
     {
         _publishDoimainEventsIntercetor = publishDoimainEventsIntercetor;
         _insertOutBoxMessagesInterceptor = insertOutBoxMessagesInterceptor;
+        _softDeleteInterceptor = softDeleteInterceptor;
     }
     public DbSet<Bill> Bills { get; set; } = null!;
     public DbSet<Dinner> Dinners { get; set; } = null!;
@@ -47,7 +50,7 @@ public class BuberDinnerDbContext:DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.AddInterceptors(_insertOutBoxMessagesInterceptor, _publishDoimainEventsIntercetor);
+        optionsBuilder.AddInterceptors(_insertOutBoxMessagesInterceptor, _publishDoimainEventsIntercetor, _softDeleteInterceptor);
 
         base.OnConfiguring(optionsBuilder);
     }

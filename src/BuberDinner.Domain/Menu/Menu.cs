@@ -1,4 +1,5 @@
-﻿using BuberDinner.Domain.Common.Models;
+﻿using BuberDinner.Domain.Common;
+using BuberDinner.Domain.Common.Models;
 using BuberDinner.Domain.Common.ValueObjects;
 using BuberDinner.Domain.Dinner.ValueObjects;
 using BuberDinner.Domain.Host.ValueObjects;
@@ -14,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BuberDinner.Domain.Menu;
-public sealed class Menu : AggregateRoot2<MenuId, Guid>
+public sealed class Menu : AggregateRoot2<MenuId, Guid>, ISoftDeletable
 {
     private readonly List<MenuSection> _sections = new();
     private readonly List<DinnerId> _dinnerIds = new();
@@ -31,6 +32,8 @@ public sealed class Menu : AggregateRoot2<MenuId, Guid>
 
     public DateTime CreatedDatetime { get; }
     public DateTime UpdatedDatetime { get; }
+    public bool IsDeleted { get ; set; } // probably bad design 
+    public DateTime? DeletedOnTime { get; set; } // probably bad design 
 
     private Menu(MenuId menuId, string name, string description, HostId hostId, List<MenuSection> menuSections,DateTime createdDatetime, DateTime updatedDatetime):base(menuId)
     {
@@ -42,6 +45,9 @@ public sealed class Menu : AggregateRoot2<MenuId, Guid>
 
         _sections.AddRange(menuSections);
         AverageRating = AverageRating.CreateNew();
+
+        IsDeleted = false;
+        DeletedOnTime = null;
     }
 
     public static Menu Create(string name, string description, HostId hostId, List<MenuSection> menuSections)
