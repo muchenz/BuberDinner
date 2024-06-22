@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuberDinner.Infrastructure.Migrations
 {
     [DbContext(typeof(BuberDinnerDbContext))]
-    [Migration("20240621235323_SoftDelete")]
+    [Migration("20240622000827_SoftDelete")]
     partial class SoftDelete
     {
         /// <inheritdoc />
@@ -205,7 +205,7 @@ namespace BuberDinner.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted")
-                        .HasFilter("is_deleted=0");
+                        .HasFilter("[IsDeleted] = 0");
 
                     b.ToTable("Menus", (string)null);
                 });

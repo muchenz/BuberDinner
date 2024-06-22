@@ -202,7 +202,7 @@ namespace BuberDinner.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted")
-                        .HasFilter("is_deleted=0");
+                        .HasFilter("[IsDeleted] = 0");
 
                     b.ToTable("Menus", (string)null);
                 });

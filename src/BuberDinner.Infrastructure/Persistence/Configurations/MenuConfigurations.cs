@@ -21,8 +21,9 @@ internal class MenuConfigurations : IEntityTypeConfiguration<Menu>
         ConfigureMenuDinnerIdsTable(builder);
         ConfigureMenuReviewIdsTable(builder);
 
+
         builder.HasQueryFilter(a => !a.IsDeleted);
-        builder.HasIndex(a => a.IsDeleted).HasFilter("is_deleted=0");
+        builder.HasIndex(a => a.IsDeleted).HasFilter("[IsDeleted] = 0");
 
 
     }

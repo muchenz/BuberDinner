@@ -28,7 +28,7 @@ namespace BuberDinner.Infrastructure.Migrations
                 name: "IX_Menus_IsDeleted",
                 table: "Menus",
                 column: "IsDeleted",
-                filter: "is_deleted=0");
+                filter: "[IsDeleted] = 0");
         }
 
         /// <inheritdoc />
