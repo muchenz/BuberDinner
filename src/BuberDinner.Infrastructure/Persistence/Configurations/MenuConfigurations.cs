@@ -1,4 +1,5 @@
-﻿using BuberDinner.Domain.Host;
+﻿using BuberDinner.Domain.Common;
+using BuberDinner.Domain.Host;
 using BuberDinner.Domain.Host.ValueObjects;
 using BuberDinner.Domain.Menu;
 using BuberDinner.Domain.Menu.Entities;
@@ -22,8 +23,8 @@ internal class MenuConfigurations : IEntityTypeConfiguration<Menu>
         ConfigureMenuReviewIdsTable(builder);
 
 
-        builder.HasQueryFilter(a => !a.IsDeleted);
-        builder.HasIndex(a => a.IsDeleted).HasFilter("[IsDeleted] = 0");
+        builder.HasQueryFilter(a => !((ISoftDeletable) a).IsDeleted);
+        builder.HasIndex(a => ((ISoftDeletable)a).IsDeleted).HasFilter("[IsDeleted] = 0");
 
 
     }

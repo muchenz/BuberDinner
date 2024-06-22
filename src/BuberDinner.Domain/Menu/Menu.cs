@@ -22,7 +22,7 @@ public sealed class Menu : AggregateRoot2<MenuId, Guid>, ISoftDeletable
     private readonly List<MenuReviewId> _menuReviewIds = new();
     public string Name { get; }
     public string Description { get; }
-    public AverageRating AverageRating { get; } 
+    public AverageRating AverageRating { get; }
 
     public HostId HostId { get; }
 
@@ -32,10 +32,9 @@ public sealed class Menu : AggregateRoot2<MenuId, Guid>, ISoftDeletable
 
     public DateTime CreatedDatetime { get; }
     public DateTime UpdatedDatetime { get; }
-    public bool IsDeleted { get ; set; } // probably bad design 
-    public DateTime? DeletedOnTime { get; set; } // probably bad design 
-
-    private Menu(MenuId menuId, string name, string description, HostId hostId, List<MenuSection> menuSections,DateTime createdDatetime, DateTime updatedDatetime):base(menuId)
+    bool ISoftDeletable.IsDeleted { get; set; } // probably bad design 
+    DateTime? ISoftDeletable.DeletedOnTime { get; set; } // probably bad design 
+    private Menu(MenuId menuId, string name, string description, HostId hostId, List<MenuSection> menuSections, DateTime createdDatetime, DateTime updatedDatetime) : base(menuId)
     {
         Name = name;
         Description = description;
@@ -46,8 +45,8 @@ public sealed class Menu : AggregateRoot2<MenuId, Guid>, ISoftDeletable
         _sections.AddRange(menuSections);
         AverageRating = AverageRating.CreateNew();
 
-        IsDeleted = false;
-        DeletedOnTime = null;
+        ((ISoftDeletable)this).IsDeleted = false;
+        (this as ISoftDeletable).DeletedOnTime = null;
     }
 
     public static Menu Create(string name, string description, HostId hostId, List<MenuSection> menuSections)
