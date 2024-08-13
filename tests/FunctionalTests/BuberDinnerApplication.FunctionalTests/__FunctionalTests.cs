@@ -23,7 +23,7 @@ public sealed class MsSqlTests : IAsyncLifetime
     private readonly MsSqlContainer _msSqlContainer = new MsSqlBuilder()
         .WithPortBinding(6421, 1433)
         .WithPassword("MyTestPassword$$123")
-        .WithName("master")
+        .WithName("master2")
         .Build();
 
     public Task InitializeAsync()
@@ -107,7 +107,7 @@ public sealed class MsSqlTests : IAsyncLifetime
         //    Assert.Equal("/", response.Headers.Location.OriginalString);
         //}
 
-        //[Fact]
+        [Fact]
         public async Task Test1Async()
         {
 

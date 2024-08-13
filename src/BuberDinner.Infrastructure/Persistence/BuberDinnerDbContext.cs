@@ -20,15 +20,18 @@ public class BuberDinnerDbContext:DbContext
     private readonly PublishDoimainEventsIntercetor _publishDoimainEventsIntercetor;
     private readonly InsertOutBoxMessagesInterceptor _insertOutBoxMessagesInterceptor;
     private readonly SoftDeleteInterceptor _softDeleteInterceptor;
+    private readonly AuditInterceptor _auditInterceptor;
 
     public BuberDinnerDbContext(DbContextOptions<BuberDinnerDbContext> options,
                                 PublishDoimainEventsIntercetor publishDoimainEventsIntercetor, 
                                 InsertOutBoxMessagesInterceptor insertOutBoxMessagesInterceptor,
-                                SoftDeleteInterceptor softDeleteInterceptor) : base(options)
+                                SoftDeleteInterceptor softDeleteInterceptor,
+                                AuditInterceptor auditInterceptor) : base(options)
     {
         _publishDoimainEventsIntercetor = publishDoimainEventsIntercetor;
         _insertOutBoxMessagesInterceptor = insertOutBoxMessagesInterceptor;
         _softDeleteInterceptor = softDeleteInterceptor;
+        _auditInterceptor = auditInterceptor;
     }
     public DbSet<Bill> Bills { get; set; } = null!;
     public DbSet<Dinner> Dinners { get; set; } = null!;
@@ -38,6 +41,7 @@ public class BuberDinnerDbContext:DbContext
     public DbSet<MenuReview> MenuReviews { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<OutboxMessage> OutboxMessages { get; set; } = null!;
+    public DbSet<AuditEntry> AuditEntries { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -50,7 +54,10 @@ public class BuberDinnerDbContext:DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.AddInterceptors(_insertOutBoxMessagesInterceptor, _publishDoimainEventsIntercetor, _softDeleteInterceptor);
+        optionsBuilder.AddInterceptors(_insertOutBoxMessagesInterceptor, 
+            _publishDoimainEventsIntercetor, 
+            _softDeleteInterceptor,
+            _auditInterceptor);
 
         base.OnConfiguring(optionsBuilder);
     }

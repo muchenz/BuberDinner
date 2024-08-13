@@ -46,6 +46,8 @@ public static class DependecyInjection
         services.AddScoped<InsertOutBoxMessagesInterceptor>();
         services.AddScoped<PublishDoimainEventsIntercetor>();
         services.AddScoped<SoftDeleteInterceptor>();
+        services.AddScoped<AuditInterceptor>();
+        services.AddScoped<List<AuditEntry>>(); //key scoped should be 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IMenuRepository, MenuRepository>();
         services.AddScoped<IOutBoxMessageRepository, OutBoxMessageRepository>();
