@@ -40,4 +40,9 @@ public abstract class ValueObject:IEquatable<ValueObject>
     {
         return Equals((object?)other); 
     }
+
+    public override string ToString()
+    {
+        return string.Join(", ", GetEqualityComponent());
+    }
 }
