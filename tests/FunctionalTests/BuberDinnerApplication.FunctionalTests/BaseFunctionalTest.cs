@@ -25,6 +25,8 @@ public class BaseFunctionalTest : IClassFixture<FunctionalTestWebAppFactory>, IA
         Scope = factory.Services.CreateScope();
     }
 
+    // this class, function etc.  runs every tests
+
     public Task InitializeAsync()
     {
         var dBcontext = Scope.ServiceProvider.GetRequiredService<BuberDinnerDbContext>();

@@ -40,9 +40,22 @@ public class FunctionalTestWebAppFactory : WebApplicationFactory<Program>, IAsyn
     }
 
 
+    // Script-Migration -i
+    // dotnet ef migrations script -i -p .\src\BuberDinner.Api\ -o .\tests\FunctionalTests\BuberDinnerApplication.FunctionalTests\migration.sql
+
     public async Task InitializeAsync()
     {
         await _msSqlContainer.StartAsync();
+
+
+
+        //-------------------- place to run sql scripts eg. migration, seed data etc - runs once
+
+        //var  sql = await File.ReadAllTextAsync("../../../migration.sql");
+
+        //await _msSqlContainer.ExecScriptAsync(sql);
+
+        //--------
 
     }
 
